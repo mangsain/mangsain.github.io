@@ -115,12 +115,21 @@
       cursor: pointer;
       font-weight: bold;
     }
-    .message-output {
-      margin-top: 1rem;
-      background: #fff;
-      border-radius: 0.5rem;
+    .messages {
+      margin-top: 2rem;
+      background: #f1f8e9;
       padding: 1rem;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      border-radius: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .messages p {
+      padding: 0.5rem;
+      background: #fff;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 3px rgba(0,0,0,0.05);
     }
     .gallery {
       display: grid;
@@ -168,12 +177,41 @@
   </header>
   <div class="container">
     <div class="profile">
-      <!-- kartu sahabat tetap -->
-      <!-- ... -->
+      <div class="card">
+        <img src="profil-jeme.jpeg" alt="Andhika Syaputra">
+        <h3>Andhika Syaputra</h3>
+        <p>(Sain)</p>
+      </div>
+      <div class="card">
+        <img src="eva.jpeg" alt="Eva Febriyanti">
+        <h3>Eva Febriyanti</h3>
+        <p>(Umi)</p>
+      </div>
+      <div class="card">
+        <img src="ival.jpeg" alt="Ival Alwigunawan">
+        <h3>Ival Alwigunawan</h3>
+        <p>(Abang)</p>
+      </div>
+      <div class="card">
+        <img src="potat.jpeg" alt="Rendy Wilastomo">
+        <h3>Rendy Wilastomo</h3>
+        <p>(Potat)</p>
+      </div>
+      <div class="card">
+        <img src="amar.jpeg" alt="Muamar">
+        <h3>Muamar</h3>
+        <p>(Playboy)</p>
+      </div>
+      <div class="card">
+        <img src="karin.jpeg" alt="Karina Ayu Nengtias">
+        <h3>Karina Ayu Nengtias</h3>
+        <p>(Deksu)</p>
+      </div>
     </div>
 
     <div class="story">
-      <!-- cerita tetap -->
+      <h2>Jejak Perjalanan Kami</h2>
+      <p>Persahabatan ini terjalin sejak langkah pertama kami di dunia perkuliahan...</p>
     </div>
 
     <div class="memories">
@@ -183,7 +221,7 @@
         <textarea name="pesan" rows="4" placeholder="Tulis pesan kenanganmu di sini..." required></textarea>
         <button type="submit">Kirim Pesan</button>
       </form>
-      <div class="message-output" id="messageOutput" style="display:none;"></div>
+      <div class="messages" id="daftarPesan"></div>
     </div>
 
     <div class="gallery">
@@ -200,9 +238,12 @@
       event.preventDefault();
       const nama = event.target.nama.value;
       const pesan = event.target.pesan.value;
-      const outputDiv = document.getElementById("messageOutput");
-      outputDiv.innerHTML = `<strong>${nama}</strong> menulis:<br><em>"${pesan}"</em>`;
-      outputDiv.style.display = "block";
+
+      const pesanBaru = document.createElement('p');
+      pesanBaru.textContent = `📨 ${nama}: ${pesan}`;
+
+      document.getElementById('daftarPesan').appendChild(pesanBaru);
+
       event.target.reset();
     }
   </script>
