@@ -5,21 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jeme Semende - Profil Resmi</title>
   <style>
+    /* ANIMATED GRADIENT BACKGROUND */
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f3f4f6;
       margin: 0;
       padding: 0;
+      height: 100vh;
+      background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
     }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
     .container {
       max-width: 800px;
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
       margin: 2rem auto;
       padding: 2rem;
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
       text-align: center;
     }
+
     img.profile {
       width: 180px;
       height: 180px;
@@ -28,28 +40,34 @@
       margin-bottom: 1rem;
       border: 5px solid #00a89d;
     }
+
     h1 {
       color: #00695c;
       margin-bottom: 0.5rem;
     }
+
     h2 {
       color: #00897b;
       font-weight: normal;
       margin-top: 0;
     }
+
     ul {
       list-style: none;
       padding: 0;
       text-align: left;
       margin-top: 2rem;
     }
+
     li {
       margin: 8px 0;
     }
+
     strong {
       display: inline-block;
       width: 130px;
     }
+
     p {
       text-align: justify;
       line-height: 1.6;
@@ -59,7 +77,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Ganti src="profil-jeme.jpeg" dengan path gambar Jeme -->
     <img src="profil-jeme.jpeg" alt="Foto Jeme Semende" class="profile"/>
 
     <h1>Jeme Semende</h1>
@@ -67,7 +84,7 @@
 
     <ul>
       <li><strong>Lahir:</strong> 27 Oktober 1997</li>
-      <li><strong>Tempat:</strong> Tanah Melayu</li>
+      <li><strong>Tempat:</strong> Tanah Melayu, Lampung Tanggamus</li>
       <li><strong>Keturunan:</strong> Puyang Cili Anom / Puyang Sirap</li>
       <li><strong>Asal:</strong> Merlawai, Muara Enim</li>
       <li><strong>Hobi:</strong> Volly ball 🏐</li>
