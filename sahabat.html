@@ -4,13 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kisah Persahabatan Mang Sain & Sahabat</title>
+  <meta name="description" content="Kisah nyata persahabatan Mang Sain bersama Umi, Abang, Potat, Playboy, dan Deksu. Kenangan kuliah, perjuangan, dan harapan.">
+  <meta name="keywords" content="Mang Sain, Persahabatan, Sahabat Kuliah, Jeme Semende, Andhika Syaputra">
+  <meta name="author" content="Andhika Syaputra">
+  <meta property="og:title" content="Kisah Persahabatan Mang Sain & Sahabat">
+  <meta property="og:description" content="Kisah nyata dan inspiratif tentang perjalanan sahabat sejati.">
+  <meta property="og:url" content="https://mangsain.github.io/sahabat.html">
   <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #dcedc8, #b2dfdb);
       margin: 0;
       padding: 0;
       color: #333;
+      animation: fadeInUp 1s ease-in-out;
     }
     header {
       background: #00695c;
@@ -28,6 +46,7 @@
       flex-wrap: wrap;
       gap: 2rem;
       justify-content: center;
+      animation: fadeInUp 1s ease-in-out;
     }
     .card {
       background: white;
@@ -59,14 +78,65 @@
       padding: 2rem;
       border-radius: 1rem;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      animation: fadeInUp 1.2s ease-in-out;
     }
     .story p {
       text-align: justify;
       line-height: 1.6;
     }
+    .memories {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: #e0f2f1;
+      border-radius: 1rem;
+      animation: fadeInUp 1.4s ease-in-out;
+    }
+    .memories h2 {
+      text-align: center;
+      color: #004d40;
+    }
+    .memories form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .memories textarea, .memories input[type="text"] {
+      padding: 0.75rem;
+      border: 1px solid #aaa;
+      border-radius: 0.5rem;
+      font-family: inherit;
+    }
+    .memories button {
+      padding: 0.75rem;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+      animation: fadeInUp 1.6s ease-in-out;
+    }
+    .gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="lagu-persahabatan.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung audio.
+  </audio>
+
   <header>
     <h1>Kisah Persahabatan Mang Sain & Sahabat</h1>
     <p>Dari perjuangan bersama hingga langkah ke masa depan</p>
@@ -122,6 +192,22 @@
       <p>
         Kini, masing-masing dari kami telah menapaki jalan sendiri. Namun cinta, kenangan, dan rasa saling memiliki itu tidak pernah pudar. Untuk Umi, Abang, Potat, Playboy, dan Deksu—terima kasih sudah menjadi bagian dari hidupku. Sehat selalu, dan tetaplah menjadi bintang dalam kisah yang telah kita tulis bersama.
       </p>
+    </div>
+
+    <div class="memories">
+      <h2>Pesan Kenangan untuk Kami</h2>
+      <form action="https://formspree.io/f/moqgqgnr" method="POST">
+        <input type="text" name="nama" placeholder="Namamu" required>
+        <textarea name="pesan" rows="4" placeholder="Tulis pesan kenanganmu di sini..." required></textarea>
+        <button type="submit">Kirim Pesan</button>
+      </form>
+    </div>
+
+    <div class="gallery">
+      <img src="foto1.jpg" alt="Kenangan 1">
+      <img src="foto2.jpg" alt="Kenangan 2">
+      <img src="foto3.jpg" alt="Kenangan 3">
+      <img src="foto4.jpg" alt="Kenangan 4">
     </div>
   </div>
 </body>
