@@ -230,12 +230,11 @@
 
     <div class="memories">
       <h2>Pesan Kenangan untuk Kami</h2>
-      <form onsubmit="tampilkanPesan(event)">
+      <form action="https://formspree.io/f/xldnvkgg" method="POST">
         <input type="text" name="nama" placeholder="Namamu" required>
         <textarea name="pesan" rows="4" placeholder="Tulis pesan kenanganmu di sini..." required></textarea>
         <button type="submit">Kirim Pesan</button>
       </form>
-      <div class="messages" id="daftarPesan"></div>
     </div>
 
     <div class="gallery">
@@ -246,20 +245,6 @@
       <img src="foto5.jpeg" alt="Kenangan 5">
     </div>
   </div>
-
-  <script>
-    function tampilkanPesan(event) {
-      event.preventDefault();
-      const nama = event.target.nama.value;
-      const pesan = event.target.pesan.value;
-
-      const pesanBaru = document.createElement('p');
-      pesanBaru.textContent = `📨 ${nama}: ${pesan}`;
-
-      document.getElementById('daftarPesan').appendChild(pesanBaru);
-
-      event.target.reset();
-    }
-  </script>
 </body>
 </html>
+
