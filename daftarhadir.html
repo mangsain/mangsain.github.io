@@ -1,111 +1,125 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daftar Hadir Online</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: linear-gradient(135deg, #007bff, #00c3ff);
-  padding: 50px;
-  color: #333;
-}
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  display: inline-block;
-  min-width: 320px;
-}
-input, textarea {
-  width: 90%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  text-align: center;
-  font-size: 16px;
-}
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 16px;
-}
-button:hover { background-color: #0056b3; }
-.status {
-  margin-top: 15px;
-  font-size: 18px;
-  font-weight: bold;
-}
-.hadir { color: green; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Hadir Kegiatan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f3f6fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background: #0066cc;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #004a99;
+    }
+
+    .msg {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <h2>Form Daftar Hadir</h2>
+  <form id="daftarHadirForm">
+    <label for="nama">Nama:</label>
+    <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
 
-  <div class="card">
-    <h2>📋 Daftar Hadir Online</h2>
+    <label for="lembaga">Lembaga:</label>
+    <input type="text" id="lembaga" name="lembaga" placeholder="Masukkan nama lembaga" required>
 
-    <input type="text" id="nama" placeholder="Masukkan nama anda"><br>
-    <input type="text" id="lembaga" placeholder="Masukkan nama lembaga / instansi"><br>
-    <input type="text" id="jabatan" placeholder="Masukkan jabatan anda"><br>
-    <textarea id="keterangan" placeholder="Tambahkan keterangan (opsional)"></textarea><br>
+    <label for="jabatan">Jabatan:</label>
+    <input type="text" id="jabatan" name="jabatan" placeholder="Masukkan jabatan" required>
 
-    <button onclick="absen()">Hadir</button>
-    <div id="status" class="status"></div>
-  </div>
+    <label for="keterangan">Keterangan:</label>
+    <textarea id="keterangan" name="keterangan" rows="2" placeholder="Opsional..."></textarea>
 
-<script>
-async function absen() {
-  const nama = document.getElementById("nama").value.trim();
-  const lembaga = document.getElementById("lembaga").value.trim();
-  const jabatan = document.getElementById("jabatan").value.trim();
-  const keterangan = document.getElementById("keterangan").value.trim();
-  const statusBox = document.getElementById("status");
+    <button type="submit">Kirim Kehadiran</button>
 
-  if (nama === "" || lembaga === "" || jabatan === "") {
-    statusBox.innerHTML = "⚠️ Harap isi semua data (nama, lembaga, jabatan)!";
-    statusBox.classList.remove("hadir");
-    return;
-  }
+    <div class="msg" id="msg"></div>
+  </form>
 
-  // URL Web App dari Google Script Jeme Semende
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwxvaZ0ksjGBAa3zHBnxZP4bLdocdgGJ67s9PNYBQrO8OcwwE4S6i6OKu6tYa29ZsApbw/exec";
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyqHYWtkC9JHMBuW49KBu3dxmCT_9gcTTWua7prsJNN-cio389mttOF6uvCQgFp8JUYhA/exec";
 
-  try {
-    const params = new URLSearchParams({
-      nama: nama,
-      lembaga: lembaga,
-      jabatan: jabatan,
-      keterangan: keterangan
+    document.getElementById("daftarHadirForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value.trim();
+      const lembaga = document.getElementById("lembaga").value.trim();
+      const jabatan = document.getElementById("jabatan").value.trim();
+      const keterangan = document.getElementById("keterangan").value.trim();
+
+      const params = new URLSearchParams({
+        nama: encodeURIComponent(nama),
+        lembaga: encodeURIComponent(lembaga),
+        jabatan: encodeURIComponent(jabatan),
+        keterangan: encodeURIComponent(keterangan)
+      });
+
+      const msgDiv = document.getElementById("msg");
+      msgDiv.innerHTML = "⏳ Mengirim data...";
+
+      try {
+        const response = await fetch(`${scriptURL}?${params}`);
+        const text = await response.text();
+        msgDiv.innerHTML = text;
+        document.getElementById("daftarHadirForm").reset();
+      } catch (error) {
+        msgDiv.innerHTML = "❌ Gagal mengirim data, periksa koneksi!";
+      }
     });
-
-    const response = await fetch(`${scriptURL}?${params.toString()}`);
-    const result = await response.text();
-
-    statusBox.innerHTML = result;
-    statusBox.classList.add("hadir");
-
-    // Kunci semua input setelah berhasil absen
-    document.querySelectorAll("input, textarea, button").forEach(el => {
-      el.disabled = true;
-      if (el.tagName === "BUTTON") el.style.backgroundColor = "#999";
-    });
-
-  } catch (err) {
-    statusBox.innerHTML = "❌ Gagal menyimpan, coba lagi!";
-    statusBox.classList.remove("hadir");
-    console.error(err);
-  }
-}
-</script>
-
+  </script>
 </body>
 </html>
