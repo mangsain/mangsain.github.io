@@ -18,9 +18,9 @@ body {
   padding: 30px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   display: inline-block;
-  min-width: 300px;
+  min-width: 320px;
 }
-input {
+input, textarea {
   width: 90%;
   padding: 10px;
   border-radius: 10px;
@@ -52,7 +52,12 @@ button:hover { background-color: #0056b3; }
 
   <div class="card">
     <h2>📋 Daftar Hadir Online</h2>
+
     <input type="text" id="nama" placeholder="Masukkan nama anda"><br>
+    <input type="text" id="lembaga" placeholder="Masukkan nama lembaga / instansi"><br>
+    <input type="text" id="jabatan" placeholder="Masukkan jabatan anda"><br>
+    <textarea id="keterangan" placeholder="Tambahkan keterangan (opsional)"></textarea><br>
+
     <button onclick="absen()">Hadir</button>
     <div id="status" class="status"></div>
   </div>
@@ -60,26 +65,40 @@ button:hover { background-color: #0056b3; }
 <script>
 async function absen() {
   const nama = document.getElementById("nama").value.trim();
+  const lembaga = document.getElementById("lembaga").value.trim();
+  const jabatan = document.getElementById("jabatan").value.trim();
+  const keterangan = document.getElementById("keterangan").value.trim();
   const statusBox = document.getElementById("status");
 
-  if (nama === "") {
-    statusBox.innerHTML = "⚠️ Silakan isi nama terlebih dahulu!";
+  if (nama === "" || lembaga === "" || jabatan === "") {
+    statusBox.innerHTML = "⚠️ Harap isi semua data (nama, lembaga, jabatan)!";
     statusBox.classList.remove("hadir");
     return;
   }
 
-  // Link Web App dari Google Script (sudah kau kirim)
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxcl3KG6cbVuAeEwF93RXETU2cq_cbL2Z07BRKSkWlXspFs4Fav_VHZOvcma2iaLVGa3w/exec";
+  // URL Web App dari Google Script Jeme Semende
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwxvaZ0ksjGBAa3zHBnxZP4bLdocdgGJ67s9PNYBQrO8OcwwE4S6i6OKu6tYa29ZsApbw/exec";
 
   try {
-    const response = await fetch(scriptURL + "?nama=" + encodeURIComponent(nama));
+    const params = new URLSearchParams({
+      nama: nama,
+      lembaga: lembaga,
+      jabatan: jabatan,
+      keterangan: keterangan
+    });
+
+    const response = await fetch(`${scriptURL}?${params.toString()}`);
     const result = await response.text();
 
     statusBox.innerHTML = result;
     statusBox.classList.add("hadir");
-    document.getElementById("nama").disabled = true;
-    document.querySelector("button").disabled = true;
-    document.querySelector("button").style.backgroundColor = "#999";
+
+    // Kunci semua input setelah berhasil absen
+    document.querySelectorAll("input, textarea, button").forEach(el => {
+      el.disabled = true;
+      if (el.tagName === "BUTTON") el.style.backgroundColor = "#999";
+    });
+
   } catch (err) {
     statusBox.innerHTML = "❌ Gagal menyimpan, coba lagi!";
     statusBox.classList.remove("hadir");
