@@ -19,7 +19,9 @@
 
     h2 {
       color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+      padding: 0px;
+      margin-top: 4px;
     }
 
     form {
@@ -27,8 +29,9 @@
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 90%;
+      width: 100%;
       max-width: 400px;
+      margin-top: 5px;
     }
 
     label {
@@ -39,24 +42,28 @@
 
     input, select {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
+      padding: 5px;
+      margin-top: 2px;
+      border: 2px solid #ccc;
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 12px;
     }
 
     button {
-      margin-top: 20px;
-      width: 100%;
+      margin-top: 10px;
+      width: 40%;
       background: #0066cc;
       color: white;
       border: none;
       padding: 12px;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 13px;
       cursor: pointer;
       transition: 0.3s;
+      
+      display: block;        
+      margin-left: auto;     
+      margin-right: auto; 
     }
 
     button:hover {
@@ -64,15 +71,22 @@
     }
 
     .msg {
-      margin-top: 20px;
+      margin-top: 10px;
       font-weight: bold;
       text-align: center;
     }
   </style>
 </head>
 <body>
-  <h2>Form Daftar Hadir</h2>
-  <h2>KOSTRAT</h2>
+  <style>
+  .header-compact h2 { margin: 0; }
+  .header-compact h2 + h2 { margin-top: 3px; }
+</style>
+
+<div class="header-compact">
+  <h2 style="text-align:center;">Form Daftar Hadir</h2>
+<h2 style="text-align:center; margin-top:5px;">KOSTRAT</h2>
+</div>
   <form id="daftarHadirForm">
     <label for="nama">Nama:</label>
     <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
@@ -104,7 +118,9 @@
   </form>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzekSzLdcFWzG8d9_acNrZYSoSa5jXh4GDXadM97E4N_lZ7DMPJ5hhuB_9SyFTKlSDTRg/exec";
+    const scriptURL = 
+
+"https://script.google.com/macros/s/AKfycbzekSzLdcFWzG8d9_acNrZYSoSa5jXh4GDXadM97E4N_lZ7DMPJ5hhuB_9SyFTKlSDTRg/exec";
 
     document.getElementById("daftarHadirForm").addEventListener("submit", async (e) => {
       e.preventDefault();
