@@ -23,7 +23,7 @@
     }
 
     form {
-      background: white;
+      background: #fF7F00;
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -37,7 +37,7 @@
       margin-top: 10px;
     }
 
-    input, select, textarea {
+    input, select {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -72,18 +72,31 @@
 </head>
 <body>
   <h2>Form Daftar Hadir</h2>
+  <h2>KOSTRAT</h2>
   <form id="daftarHadirForm">
     <label for="nama">Nama:</label>
     <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
 
-    <label for="lembaga">Lembaga:</label>
-    <input type="text" id="lembaga" name="lembaga" placeholder="Masukkan nama lembaga" required>
+   
 
-    <label for="jabatan">Jabatan:</label>
-    <input type="text" id="jabatan" name="jabatan" placeholder="Masukkan jabatan" required>
+    <label for="Lembaga">Lembaga:</label>
+    <select id="Lembaga" name="Lembaga" required>
+      <option value="">-- Pilih Lembaga --</option>
+      <option value="DPAC">DPAC</option>
+      <option value="DPC">DPC</option>
+      <option value="DPP">DPP</option>
+    </select>
+    
+     <label for="Jabatan">Jabatan:</label>
+    <input type="text" id="Jabatan" name="Jabatan" placeholder="Masukkan Jabatan" required>
 
     <label for="keterangan">Keterangan:</label>
-    <textarea id="keterangan" name="keterangan" rows="2" placeholder="Opsional..."></textarea>
+    <select id="keterangan" name="keterangan" required>
+      <option value="">-- Pilih Keterangan --</option>
+      <option value="Hadir">Hadir</option>
+      <option value="Izin">Izin</option>
+      <option value="Tidak Hadir">Tidak Hadir</option>
+    </select>
 
     <button type="submit">Kirim Kehadiran</button>
 
@@ -91,31 +104,25 @@
   </form>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxOwmcuQgEwAfphsHfS9dY7gZJK0rECN90MY6v3NEIS9VIxQb4yuRlKyc7Q13YfRBia0w/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzekSzLdcFWzG8d9_acNrZYSoSa5jXh4GDXadM97E4N_lZ7DMPJ5hhuB_9SyFTKlSDTRg/exec";
 
     document.getElementById("daftarHadirForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const nama = document.getElementById("nama").value.trim();
-      const lembaga = document.getElementById("lembaga").value.trim();
-      const jabatan = document.getElementById("jabatan").value.trim();
-      const keterangan = document.getElementById("keterangan").value.trim();
-
-      const params = new URLSearchParams({
-        nama: encodeURIComponent(nama),
-        lembaga: encodeURIComponent(lembaga),
-        jabatan: encodeURIComponent(jabatan),
-        keterangan: encodeURIComponent(keterangan)
-      });
-
+      const form = e.target;
+      const formData = new FormData(form); // biar spasi tetap aman
+      
       const msgDiv = document.getElementById("msg");
       msgDiv.innerHTML = "⏳ Mengirim data...";
 
       try {
-        const response = await fetch(`${scriptURL}?${params}`);
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: formData
+        });
         const text = await response.text();
         msgDiv.innerHTML = text;
-        document.getElementById("daftarHadirForm").reset();
+        form.reset();
       } catch (error) {
         msgDiv.innerHTML = "❌ Gagal mengirim data, periksa koneksi!";
       }
