@@ -49,7 +49,7 @@
   label { font-weight: bold; margin-top: 10px; display: block; }
 
   input, select {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -68,6 +68,10 @@
     border: none;
     cursor: pointer;
     transition: .2s;
+
+    display: block;     
+    margin-left: auto;    
+    margin-right: auto;
   }
 
   button:hover { background: #004a99; }
@@ -140,18 +144,19 @@
 
   <form id="daftarHadirForm">
     <label>Nama:</label>
-    <input type="text" id="nama" name="nama" required>
+    <input type="text" id="nama" name="nama" placeholder="Masukkan Nama" required>
 
     <label>Lembaga:</label>
     <select id="Lembaga" name="Lembaga" required>
       <option value="">-- Pilih Lembaga --</option>
       <option value="DPAC">DPAC</option>
       <option value="DPC">DPC</option>
+      <option value="DPC">DPD</option>
       <option value="DPP">DPP</option>
     </select>
 
     <label>Jabatan:</label>
-    <input type="text" id="Jabatan" name="Jabatan" required>
+    <input type="text" id="Jabatan" name="Jabatan" placeholder="Masukkan Jabatan" required>
 
     <label>Keterangan:</label>
     <select id="keterangan" name="keterangan" required>
