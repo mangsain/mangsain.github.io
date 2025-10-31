@@ -106,7 +106,8 @@ function cekAbsenLocal(){
   const now=Date.now(); const diff=(now-last)/(1000*60*60);
   if(diff<24){
     btn.disabled=true; /*form.style.opacity="0.5";*/
-    msg.innerHTML=`⚠️ Jeme sudah absen. Tunggu ${Math.ceil(24-diff)} jam lagi yo.`;
+    msg.innerHTML=`⚠️ Anda Sudah Absen.`;
+    /*Tunggu ${Math.ceil(24-diff)} jam lagi yo.`;*/
   }
 }
 
