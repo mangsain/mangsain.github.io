@@ -97,8 +97,8 @@
       <label>Nama Barang:</label>
       <input type="text" id="namaBarang" placeholder="Contoh: Seragam KOSTRAT" required>
 
-      <label>Harga:</label>
-      <input type="number" id="harga" placeholder="Contoh: 150000" required>
+      <label>Harga (Rp):</label>
+      <input type="text" id="harga" placeholder="Contoh: Rp150.000" required>
 
       <label>Keterangan:</label>
       <textarea id="keterangan" placeholder="Tambahkan catatan jika perlu"></textarea>
@@ -113,8 +113,22 @@
   </div>
 
   <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbws5qxEFuQQwziXBsWpWiekV44-a5fsDsTEm0n31NlKQN2Oat7FZuDXVYJLfk3iVrC8xw/exec"; // ganti setelah publish script kamu
+  const scriptURL = "https://script.google.com/macros/s/AKfycbws5qxEFuQQwziXBsWpWiekV44-a5fsDsTEm0n31NlKQN2Oat7FZuDXVYJLfk3iVrC8xw/exec";
 
+  // === Format input harga ke Rupiah ===
+  const hargaInput = document.getElementById('harga');
+  hargaInput.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/[^,\d]/g, '').toString();
+    if (value) {
+      const parts = value.split(',');
+      let rupiah = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      e.target.value = 'Rp ' + rupiah + (parts[1] !== undefined ? ',' + parts[1] : '');
+    } else {
+      e.target.value = '';
+    }
+  });
+
+  // === Kirim data ke Google Apps Script ===
   document.getElementById('pembayaranForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
