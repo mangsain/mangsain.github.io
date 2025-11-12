@@ -6,50 +6,114 @@
 <title>Form Pembayaran KOSTRAT</title>
 <style>
   body {
-    font-family: 'Segoe UI';
-    background: #222;
-    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff8c00, #007BFF);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
     padding: 20px;
   }
+
+  .container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 35px 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+    animation: fadeIn 1s ease;
+  }
+
+  h2 {
+    text-align: center;
+    color: #FFD700;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+  }
+
   input, textarea {
     width: 100%;
-    margin: 8px 0;
-    padding: 8px;
+    margin-bottom: 15px;
+    padding: 10px 12px;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: 0.3s;
   }
+
+  input:focus, textarea:focus {
+    border-color: #FFD700;
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+  }
+
   button {
     background: #FFD700;
+    color: #000;
+    font-weight: bold;
     border: none;
-    color: black;
-    padding: 10px 16px;
+    padding: 12px;
+    width: 100%;
     border-radius: 8px;
     cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #e5c100;
+    transform: scale(1.03);
+  }
+
+  #status {
+    text-align: center;
+    margin-top: 15px;
+    font-style: italic;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
   }
 </style>
 </head>
 <body>
-  <h2>📋 Form Pembayaran KOSTRAT</h2>
-  <form id="pembayaranForm">
-    <label>Nama Barang:</label>
-    <input type="text" id="namaBarang" required>
-    
-    <label>Harga:</label>
-    <input type="number" id="harga" required>
-    
-    <label>Keterangan:</label>
-    <textarea id="keterangan"></textarea>
-    
-    <label>Upload Foto Bukti Kwitansi:</label>
-    <input type="file" id="foto" accept="image/*" required>
-    
-    <button type="submit">Kirim Data</button>
-  </form>
+  <div class="container">
+    <h2>📋 Form Pembayaran KOSTRAT</h2>
+    <form id="pembayaranForm">
+      <label>Nama Barang:</label>
+      <input type="text" id="namaBarang" placeholder="Contoh: Seragam KOSTRAT" required>
 
-  <p id="status"></p>
+      <label>Harga:</label>
+      <input type="number" id="harga" placeholder="Contoh: 150000" required>
+
+      <label>Keterangan:</label>
+      <textarea id="keterangan" placeholder="Tambahkan catatan jika perlu"></textarea>
+
+      <label>Upload Foto Bukti Kwitansi:</label>
+      <input type="file" id="foto" accept="image/*" required>
+
+      <button type="submit">Kirim Data</button>
+    </form>
+
+    <p id="status"></p>
+  </div>
 
   <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbws5qxEFuQQwziXBsWpWiekV44-a5fsDsTEm0n31NlKQN2Oat7FZuDXVYJLfk3iVrC8xw/exec"; // nanti diisi setelah publish
+  const scriptURL = "https://script.google.com/macros/s/AKfycbws5qxEFuQQwziXBsWpWiekV44-a5fsDsTEm0n31NlKQN2Oat7FZuDXVYJLfk3iVrC8xw/exec"; // ganti setelah publish script kamu
 
   document.getElementById('pembayaranForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -59,7 +123,9 @@
     const keterangan = document.getElementById('keterangan').value;
     const fotoFile = document.getElementById('foto').files[0];
     const reader = new FileReader();
-    
+
+    document.getElementById('status').innerText = "Mengirim data... ⏳";
+
     reader.onloadend = async () => {
       const fotoBase64 = reader.result;
       const formData = new FormData();
@@ -68,11 +134,15 @@
       formData.append("keterangan", keterangan);
       formData.append("foto", fotoBase64);
 
-      const res = await fetch(scriptURL, { method: "POST", body: formData });
-      const text = await res.text();
-      document.getElementById('status').innerText = text;
+      try {
+        const res = await fetch(scriptURL, { method: "POST", body: formData });
+        const text = await res.text();
+        document.getElementById('status').innerText = "✅ " + text;
+      } catch (err) {
+        document.getElementById('status').innerText = "❌ Gagal mengirim data. Coba lagi.";
+      }
     };
-    
+
     reader.readAsDataURL(fotoFile);
   });
   </script>
