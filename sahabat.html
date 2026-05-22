@@ -172,8 +172,10 @@
 
     .message-item img{
       width:100%;
+      max-height:400px;
+      object-fit:cover;
+      border-radius:12px;
       margin-top:10px;
-      border-radius:10px;
     }
 
     .gallery{
@@ -588,22 +590,45 @@ db.collection("kenangan")
 
     const data = doc.data();
 
-    // TAMPILKAN PESAN
-    messages.innerHTML += `
+    // TAMPILKAN PESAN + FOTO
+messages.innerHTML += `
 
-      <div class="message-item">
+  <div class="message-item">
 
-        <b>
-          👤 ${data.nama}
-        </b>
+    <b>
+      👤 ${data.nama}
+    </b>
 
-        <br><br>
+    <br><br>
 
-        💬 ${data.pesan}
+    💬 ${data.pesan}
 
-      </div>
+    ${
+      data.foto
+      ?
+      `
+      <br><br>
 
-    `;
+      <img src="${data.foto}"
+           class="firebaseFoto">
+
+      <br><br>
+
+      <a href="${data.foto}"
+         download="foto-${data.nama}.jpg"
+         class="download-btn">
+
+         📥 Download Foto
+
+      </a>
+      `
+      :
+      ""
+    }
+
+  </div>
+
+`;
 
 
     // TAMPILKAN FOTO
